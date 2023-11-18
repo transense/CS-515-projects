@@ -1,3 +1,8 @@
+
+def json():
+    
+
+
 def main():
     
     parser = argparse.ArgumentParser(description="count liens, words and characters of the file or from the standard input(STDIN)")
@@ -11,7 +16,7 @@ def main():
     
     
     try:
-        lines, words, characters = wc(arguments.input_file.name)
+         json_123 = json(arguments.input_file.name)
         file_name = arguments.input_file.name
         if os.name == 'nt':
             file_name = Path(arguments.input_file.name).as_posix()
