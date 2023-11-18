@@ -6,8 +6,8 @@ import sys
 def wc(file):
     if file == '<stdin>':
         content = sys.stdin.read()
-        lines = len(content)
-        word = len(content.split())
+        #print(f"'{content}'")
+        lines = content.count('\n')
         characters = len(content)
         words = len(content.split())
         # print("No of Words",len(words))
@@ -15,8 +15,8 @@ def wc(file):
 
         # print(file)
     
-    print(file)
     file = open(file)
+    #print(f"'{file.readlines()}'")
     lines = len(file.readlines())
     # print("Sentences = ", len(file.readlines()))
     file.seek(0)
