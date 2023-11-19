@@ -1,0 +1,11 @@
+{
+    "Name": "stevens",
+    "category": "Educational",
+    "location": "hoboken",
+    "contacts": {
+      "email": "example.com",
+      "phone": "123-456-789"
+    },
+    "hobbies": ["reading", "traveling"]
+  }
+  

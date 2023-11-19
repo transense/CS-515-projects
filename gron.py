@@ -6,28 +6,31 @@ import os
 def json_to_gron(data, prefix="json"):
     gron = f"{prefix} = {{}};\n"
     
+    
     def convert(obj, prefix="json"):
         nonlocal gron
         if isinstance(obj, dict):
-            for key, value in sorted(obj.items()):
-                new_prefix = f"{prefix}.{key}"
+            for i, value in sorted(obj.items()):
+                new_prefix = f"{prefix}.{i}"
                 if isinstance(value, dict):
                     gron += f"{new_prefix} = {{}};\n"
                 convert(value, new_prefix)
         elif isinstance(obj, list):
             gron += f"{prefix} = [];\n"
-            #if all(isinstance(item, dict) for item in obj):
-            for i, value in enumerate(obj):
-                new_prefix = f"{prefix}[{i}]"
-                gron += f"{new_prefix} = {{}};\n"
-                convert(value, new_prefix)
+            if all(isinstance(item, dict) for item in obj):
+                for i, value in enumerate(obj):
+                    new_prefix = f"{prefix}[{i}]"
+                    gron += f"{new_prefix} = {{}};\n"
+                    convert(value, new_prefix)
+            else:
+                for i, value in enumerate(obj):
+                    new_prefix = f"{prefix}[{i}]"
+                    convert(value, new_prefix)
         else:
             gron += f"{prefix} = {json.dumps(obj)};\n"
     
     convert(data)
     return gron
-
-
 
 def main():
     
@@ -50,3 +53,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
