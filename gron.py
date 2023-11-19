@@ -5,8 +5,7 @@ import os
 
 def json_to_gron(data, prefix="json"):
     gron = f"{prefix} = {{}};\n"
-    
-    
+       
     def convert(obj, prefix="json"):
         nonlocal gron
         if isinstance(obj, dict):
@@ -53,4 +52,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
