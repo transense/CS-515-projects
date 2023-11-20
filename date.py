@@ -14,6 +14,7 @@ def current_day():
 
 def leap_year():
     year = datetime.now().year
+    
     if(year %4 ==0):
         print(f"{year} is a leap year.")
     else:
@@ -24,7 +25,7 @@ def difference(date1):
         date1 = datetime.strptime(date1, '%Y-%m-%d')
         today = datetime.now()
         difference =  date1 - today
-        print(f"Difference between {date1.strftime('%Y-%m-%d')} and today: {difference.days} days")
+        print(f"Difference between {date1.strftime('%Y-%m-%d')} and {today}: {difference.days} days")
     except Exception as e:
         print(f"{e}{date1}invalid date. Please enter a valid date")
         sys.exit(1)

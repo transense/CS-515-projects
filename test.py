@@ -13,20 +13,23 @@ for filename in all_files:
 
 def execute_test(input_file, script, execution_type, script_flags):
     input_path = os.path.join(test_folder, input_file)
-    expected_output_path = os.path.join(test_folder, input_file.replace(".in", f"{script_flags}.out"))
+    if script=='date.py':
+        with open(input_path, "r") as expected_output:
+            input_path = expected_output.read()
+    expected_output_path = os.path.join(test_folder, input_file.replace(".in", f"{script_flags.split(' ')[0]}.out"))
     if execution_type == 'stdin':
         expected_output_path = expected_output_path.replace('.out', '.stdin.out')
 
     try:
         print(f"Test Input: {input_path}")
-
-        if execution_type == "stdin":
+        if execution_type == "stdin" and script !='date.py':
             command = f"python {script} {script_flags} < {input_path}"
         else:
             command = f"python {script} {Path(input_path).as_posix()} {script_flags}"
-
+        print(command)
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
         print("Execution Command:", result.args)
+        print("output",result.stdout)
 
         if result.stdout:
             print("Expected Output Path:", expected_output_path)
@@ -44,12 +47,12 @@ def execute_test(input_file, script, execution_type, script_flags):
         return "ERROR", str(e)
 
 def main():
-    test_results = {"Passed": 0, "Failed": 0, "WordCount_Tests": 0, "gron_test": 0, "CustomScript_Tests": 0}
+    test_results = {"Passed": 0, "Failed": 0, "WordCount_Tests": 0, "gron_test": 0, "Date_Tests": 0}
     total_tests = 0
     test_flags = {
         "wordcount": ['', '-l', '-w', '-c'],
-        "gron": [''],
-        "customscript": ['', '-e', '-d']
+        "gron": ['','-o obj'],
+        "date": ['']
     }
 
     for test_file in test_files:
@@ -61,10 +64,10 @@ def main():
             script_name = "gron.py"
             test_results["gron_test"] += 1
             additional_flags = test_flags['gron']
-        elif test_file.startswith('customscript'):
-            script_name = "custom_script.py"
-            test_results["CustomScript_Tests"] += 1
-            additional_flags = test_flags['customscript']
+        elif test_file.startswith('date'):
+            script_name = "date.py"
+            test_results["Date_Tests"] += 1
+            additional_flags = test_flags['date']
 
         for execution_type in ["cli", "stdin"]:
             for flag in additional_flags:

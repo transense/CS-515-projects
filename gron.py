@@ -6,7 +6,7 @@ import os
 def json_to_gron(data, prefix="json"):
     gron = f"{prefix} = {{}};\n"
        
-    def convert(obj, prefix="json"):
+    def convert(obj, prefix=prefix):
         nonlocal gron
         if isinstance(obj, dict):
             for i, value in sorted(obj.items()):
@@ -35,17 +35,22 @@ def main():
     
     parser = argparse.ArgumentParser(description="count liens, words and characters of the file or from the standard input(STDIN)")
     parser.add_argument("input_file", nargs='?',type =argparse.FileType("r"),default= sys.stdin, help = "Read input from satndard input(stdin)")
-    # parser.add_argument('-l','--lines',help='Print total line count', action ='store_true')
-    # parser.add_argument('-c', '--characters',help ='print total count of characters', action = 'store_true')
-    # parser.add_argument('-w','--words', help ='print total count of words', action= 'store_true')
-
+    parser.add_argument('-o','--object',help='Objects of json')
+   
     arguments =  parser.parse_args()
     
     try:
-        file = open(arguments.input_file.name)
+        file = arguments.input_file
         content = json.load(file)
         
-        print(json_to_gron(content))
+        
+        if arguments.object:
+            print(json_to_gron(content, prefix=arguments.object))
+
+
+        else :
+            print(json_to_gron(content))
+
     except Exception as e:
         print(e)
         sys.exit(1)

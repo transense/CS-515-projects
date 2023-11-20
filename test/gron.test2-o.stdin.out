@@ -1,0 +1,11 @@
+obj = {};
+obj.Name = "stevens";
+obj.category = "Educational";
+obj.contacts = {};
+obj.contacts.email = "example.com";
+obj.contacts.phone = "123-456-789";
+obj.hobbies = [];
+obj.hobbies[0] = "reading";
+obj.hobbies[1] = "traveling";
+obj.location = "hoboken";
+

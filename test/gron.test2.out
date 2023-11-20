@@ -1,0 +1,11 @@
+json = {};
+json.Name = "stevens";
+json.category = "Educational";
+json.contacts = {};
+json.contacts.email = "example.com";
+json.contacts.phone = "123-456-789";
+json.hobbies = [];
+json.hobbies[0] = "reading";
+json.hobbies[1] = "traveling";
+json.location = "hoboken";
+
