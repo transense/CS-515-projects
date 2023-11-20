@@ -3,17 +3,21 @@ from datetime import datetime, timedelta
 import os
 from pathlib import Path
 import sys
+import pytz
+
+timezone = pytz.timezone('America/New_York')
+
 
 def current_date():
-    today = datetime.now()
+    today = datetime.now(timezone)
     print(f"Today's date is: {today.strftime('%Y-%m-%d')}")
 
 def current_day():
-    today= datetime.now()
+    today= datetime.now(timezone)
     print(f"Current day: {today.strftime('%A')}")
 
 def leap_year():
-    year = datetime.now().year
+    year = datetime.now(timezone).year
     
     if(year %4 ==0):
         print(f"{year} is a leap year.")
@@ -23,8 +27,8 @@ def leap_year():
 def difference(date1):
     try:
         date1 = datetime.strptime(date1, '%Y-%m-%d')
-        today = datetime.now()
-        difference =  date1 - today
+        today = datetime.now(timezone).date()
+        difference =  date1.date() - today
         print(f"Difference between {date1.strftime('%Y-%m-%d')} and {today}: {difference.days} days")
     except Exception as e:
         print(f"{e}{date1}invalid date. Please enter a valid date")
