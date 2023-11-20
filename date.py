@@ -28,7 +28,7 @@ def difference(date1):
     try:
         date1 = datetime.strptime(date1, '%Y-%m-%d')
         today = datetime.now(timezone).date()
-        difference =  date1.date() - today
+        difference=  date1.date() - today
         print(f"Difference between {date1.strftime('%Y-%m-%d')} and {today}: {difference.days} days")
     except Exception as e:
         print(f"{e}{date1}invalid date. Please enter a valid date")

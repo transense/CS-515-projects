@@ -29,7 +29,7 @@ def execute_test(input_file, script, execution_type, script_flags):
         print(command)
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
         print("Execution Command:", result.args)
-        print("output",result.stdout)
+        print(f"output:'{result.stdout}'")
 
         if result.stdout:
             print("Expected Output Path:", expected_output_path)
