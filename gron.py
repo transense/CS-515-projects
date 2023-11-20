@@ -33,7 +33,7 @@ def json_to_gron(data, prefix="json"):
 
 def main():
     
-    parser = argparse.ArgumentParser(description="count liens, words and characters of the file or from the standard input(STDIN)")
+    parser = argparse.ArgumentParser(description="Flatten the file from json or from the standard input(STDIN)")
     parser.add_argument("input_file", nargs='?',type =argparse.FileType("r"),default= sys.stdin, help = "Read input from satndard input(stdin)")
     parser.add_argument('-o','--object',help='Objects of json')
    

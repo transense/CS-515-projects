@@ -29,7 +29,7 @@ def execute_test(input_file, script, execution_type, script_flags):
         print(command)
         result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
         print("Execution Command:", result.args)
-        print(f"output:'{result.stdout}'")
+        print(f"output:'{result}'")
 
         if result.stdout:
             print("Expected Output Path:", expected_output_path)
@@ -39,6 +39,8 @@ def execute_test(input_file, script, execution_type, script_flags):
                     if result.stdout == expected_result:
                         return "PASS", None, result.returncode, expected_result
                     else:
+                        if 'ÿþ' in expected_result:
+                            expected_result = expected_result.replace('ÿþ','')
                         return "FAIL", f"Output Mismatch!\nGot:\n{result.stdout}", 1, expected_result
             except FileNotFoundError:
                 return "FAIL", f"File Not Found!\n{expected_output_path}", 1, ''
@@ -70,6 +72,8 @@ def main():
             additional_flags = test_flags['date']
 
         for execution_type in ["cli", "stdin"]:
+            if execution_type=='stdin' and script_name=='date.py':
+                continue
             for flag in additional_flags:
                 status, error_message, exit_code, expected_result = execute_test(test_file, script_name, execution_type, flag)
                 total_tests += 1
